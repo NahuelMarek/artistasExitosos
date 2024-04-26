@@ -26,30 +26,31 @@ paty = UnArtista "Taylor Paty" ["Shake It Off", "Lover"]
 calificacionDeCancion :: Cancion -> Number
 calificacionDeCancion = (10+).length.soloMinusculas
 
-
 soloMinusculas :: Cancion->Cancion
 soloMinusculas cancion = filter (\cancion -> elem cancion "abcdefghijklmnopqrstuvwxyz") cancion
 
+--------------------------- otra forma ----------------------------------------------------
+calificacionDeCancion' :: Cancion -> Number
+calificacionDeCancion' = (10+).length.filter (\cancion -> elem cancion "abcdefghijklmnopqrstuvwxyz")
 
+-----------------------------------------------------------------------------------------
 --punto 2
 esExitoso :: Artista -> Bool
 esExitoso = (>50).sum.cancionesBuenas.canciones
 
 cancionesBuenas :: [Cancion] -> [Number] 
-cancionesBuenas canciones = filter (>20) (map calificacionDeCancion canciones)
+cancionesBuenas = filter (>20).map calificacionDeCancion
 
+----------- otra forma ---------------------
 esExitoso' :: Artista -> Bool
 esExitoso' = (>50).sum.filter (>20).map calificacionDeCancion.canciones
 
+-----------------------------------------------------------------------------------------
 --punto 3
-
 artistasExitosos :: [Artista] -> [String]
-artistasExitosos artistas = map (\artista -> nombre artista) (filter esExitoso artistas)
-
-artistasExitosos' :: [Artista] -> [String]
-artistasExitosos' = map (\artista -> nombre artista).(filter esExitoso)
+artistasExitosos = map (\artista -> nombre artista).(filter esExitoso)
   
 --punto 4 ????
-artistasExitosos'' :: [Artista] -> [String]  
+artistasExitosos' :: [Artista] -> [String]  
 --artistasExitosos'' =  (>50).sum.filter (>20).map ((10+).length.filter (\cancion -> elem cancion "abcdefghijklmnopqrstuvwxyz")).canciones
-artistasExitosos'' = map (\artista -> nombre artista).filter ((>50).sum.filter (>20).map ((10+).length.filter (\cancion -> elem cancion "abcdefghijklmnopqrstuvwxyz")).canciones)
+artistasExitosos' = map (\artista -> nombre artista).filter ((>50).sum.filter (>20).map ((10+).length.filter (\cancion -> elem cancion "abcdefghijklmnopqrstuvwxyz")).canciones)
