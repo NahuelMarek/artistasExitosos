@@ -21,13 +21,18 @@ calamardo = UnArtista "Andres Calamardo" ["Flaca", "Sin Documentos", "Tuyo siemp
 paty :: Artista
 paty = UnArtista "Taylor Paty" ["Shake It Off", "Lover"]
 
+grupoDeArtistas :: [Artista] 
+grupoDeArtistas = [fitito, paty, calamardo]
 
 --punto 1
 calificacionDeCancion :: Cancion -> Number
 calificacionDeCancion = (10+).length.soloMinusculas
 
 soloMinusculas :: Cancion->Cancion
-soloMinusculas cancion = filter (\cancion -> elem cancion "abcdefghijklmnopqrstuvwxyz") cancion
+soloMinusculas cancion = filter letraEsMinuscula cancion
+
+letraEsMinuscula :: Char -> Bool
+letraEsMinuscula letra = elem letra "abcdefghijklmnopqrstuvwxyz"
 
 --------------------------- otra forma ----------------------------------------------------
 calificacionDeCancion' :: Cancion -> Number
@@ -52,5 +57,4 @@ artistasExitosos = map (\artista -> nombre artista).(filter esExitoso)
   
 --punto 4 ????
 artistasExitosos' :: [Artista] -> [String]  
---artistasExitosos'' =  (>50).sum.filter (>20).map ((10+).length.filter (\cancion -> elem cancion "abcdefghijklmnopqrstuvwxyz")).canciones
 artistasExitosos' = map (\artista -> nombre artista).filter ((>50).sum.filter (>20).map ((10+).length.filter (\cancion -> elem cancion "abcdefghijklmnopqrstuvwxyz")).canciones)
